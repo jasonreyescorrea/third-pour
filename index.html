@@ -3,50 +3,61 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Independent specialty coffee shops in Boston, Sacramento, New York, San Francisco and Mexico City, ranked by what you want from your next cup.">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Third Pour</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Independent specialty coffee shops in Boston, Sacramento, New York, San Francisco and Mexico City, ranked by what you want from your next cup.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schoolbell&family=Karla:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schoolbell&display=swap">
 <style>
 /* Layout: a handwritten café guide. Chalk-hand lettering leads, a typewriter face labels,
-   and every shop gets its own painted sign in vintage-sneaker tones: cream, navy, oxblood, olive, sky, wood. */
+   and every shop gets its own painted stripe in vintage-sneaker tones: cream, navy, oxblood, olive, sky, wood. */
 :root {
-  --bg: #F2ECE0;          /* aged sneaker leather */
-  --surface: #FBF8F1;
-  --ink: #1D2640;         /* navy */
-  --muted: #6E6A60;
-  --line: #DCD3C2;
-  --accent: #8E2C2A;      /* oxblood stripe */
-  --accent-soft: #EFDCD5;
+  /* Black and white lead; oxblood, olive and the stripe tones are small touches */
+  --bg: #FFFFFF;
+  --surface: #FAFAFA;
+  --ink: #0A0A0A;
+  --muted: #6B6B6B;
+  --line: #E3E3E3;
+  --accent: #8E2C2A;      /* oxblood */
+  --on-accent: #FFFFFF;
   --olive: #4D5A33;       /* corduroy green */
-  --olive-soft: #E3E5D1;
-  --shadow: rgba(29, 38, 64, .14);
-  /* fixed sign paints: each pair carries its own contrast, so they read on either theme */
-  --p-cream: #F1E7D2; --p-navy: #1F2A4A; --p-oxblood: #8A2A28; --p-olive: #55603A; --p-sky: #B7CBE3; --p-wood: #B5895A; --p-steel: #C9CCCF;
+  --olive-soft: #ECEEE2;
+  --shadow: rgba(0, 0, 0, .08);
+  /* card stripes */
+  --s1: #1F2A4A; --s2: #8A2A28; --s3: #55603A; --s4: #8FAACB; --s5: #B5895A;
   --font-hand: "Schoolbell", "Bradley Hand", "Comic Sans MS", cursive;
-  --font-type: "Karla", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-small: "Karla", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-type: var(--font-hand);
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #141A2B; --surface: #1B2236; --ink: #F0E8D8; --muted: #A49E90; --line: #2D3550;
-    --accent: #DB6B61; --accent-soft: #3B2024; --olive: #AEBB86; --olive-soft: #262C1F;
-    --shadow: rgba(0, 0, 0, .4);
+    --bg: #000000; --surface: #0E0E0E; --ink: #FFFFFF; --muted: #A3A3A3; --line: #2B2B2B;
+    --accent: #E07A70; --on-accent: #000000; --olive: #B5C28D; --olive-soft: #1E2318;
+    --shadow: rgba(255, 255, 255, .06);
+    --s1: #8EA3D6; --s2: #E07A70; --s3: #B5C28D; --s4: #B7CBE3; --s5: #D2A673;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #141A2B; --surface: #1B2236; --ink: #F0E8D8; --muted: #A49E90; --line: #2D3550;
-  --accent: #DB6B61; --accent-soft: #3B2024; --olive: #AEBB86; --olive-soft: #262C1F;
-  --shadow: rgba(0, 0, 0, .4);
+  --bg: #000000; --surface: #0E0E0E; --ink: #FFFFFF; --muted: #A3A3A3; --line: #2B2B2B;
+  --accent: #E07A70; --on-accent: #000000; --olive: #B5C28D; --olive-soft: #1E2318;
+  --shadow: rgba(255, 255, 255, .06);
+  --s1: #8EA3D6; --s2: #E07A70; --s3: #B5C28D; --s4: #B7CBE3; --s5: #D2A673;
   color-scheme: dark;
 }
+/* City pages are strictly black and white: color touches stay on the home page only */
+body[data-view="city"] {
+  --accent: var(--ink); --on-accent: var(--bg);
+  --olive: var(--ink); --olive-soft: var(--line);
+  --s1: var(--ink); --s2: var(--ink); --s3: var(--ink); --s4: var(--ink); --s5: var(--ink);
+}
+/* Easy-read font: swaps the handwriting for a high-legibility face everywhere */
 
 * { box-sizing: border-box; }
-body { background: var(--bg); color: var(--ink); font-family: var(--font-hand); font-size: 19px; line-height: 1.4; }
+html, body { background: var(--bg); }
+body { color: var(--ink); font-family: var(--font-hand); font-size: 19px; line-height: 1.4; transition: background-color .25s, color .25s; }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
 .wrap {
   max-width: 1200px; margin: 0 auto;
@@ -57,103 +68,162 @@ h1, h2, h3 { margin: 0; font-family: var(--font-hand); font-weight: 400; text-wr
 button, a { font: inherit; color: inherit; }
 button { cursor: pointer; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.label { font-family: var(--font-type); font-size: 12px; text-transform: uppercase; letter-spacing: .14em; color: var(--muted); }
+.label { font-family: var(--font-type); font-size: 16px; letter-spacing: .02em; color: var(--muted); }
 
-/* Sticky header + city tabs */
+/* Sticky header: brand, city tabs, reading toggles */
 .top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); border-bottom: 1.5px dashed var(--line); }
-.top .wrap { display: flex; align-items: center; gap: 24px; padding-block: 10px; }
-.brand { font-size: 28px; white-space: nowrap; display: flex; align-items: center; gap: 8px; }
+.top .wrap { display: flex; align-items: center; gap: 16px; padding-block: 10px; }
+.brand { font-size: 28px; white-space: nowrap; display: flex; align-items: center; gap: 8px; background: none; border: 0; padding: 0; text-decoration: none; }
 .brand-mark { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--ink); position: relative; flex: none; }
 .brand-mark::after { content: ""; position: absolute; inset: 3px; border-radius: 50%; background: var(--accent); }
-.tabs-scroll { overflow-x: auto; scrollbar-width: none; min-width: 0; flex: 1; }
-.tabs-scroll::-webkit-scrollbar { display: none; }
-.tabs { display: flex; gap: 4px; justify-content: flex-end; min-width: max-content; }
-.tab { border: 1.5px solid transparent; background: transparent; border-radius: 999px; padding: 4px 16px; font-size: 21px; white-space: nowrap; }
+
+.tabs-box { flex: 1; min-width: 0; display: flex; align-items: center; gap: 2px; }
+.tabs-scroll { flex: 1; min-width: 0; overflow-x: auto; overscroll-behavior-x: contain; scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: var(--line) transparent; padding-bottom: 4px; margin-bottom: -4px;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 var(--fade-l, 0px), #000 calc(100% - var(--fade-r, 0px)), transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0, #000 var(--fade-l, 0px), #000 calc(100% - var(--fade-r, 0px)), transparent 100%); }
+.tabs-scroll::-webkit-scrollbar { height: 4px; }
+.tabs-scroll::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
+.tabs { display: flex; gap: 4px; width: max-content; margin-left: auto; }
+.tab { border: 1.5px solid transparent; background: transparent; border-radius: 999px; padding: 4px 14px; font-size: 20px; white-space: nowrap; }
 .tab:hover { border-color: var(--line); }
 .tab[aria-selected="true"] { background: var(--ink); color: var(--bg); }
+.nudge { flex: none; width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--line); background: var(--surface); font-family: var(--font-type); font-size: 15px; line-height: 1; display: grid; place-items: center; padding: 0; }
+.nudge:hover { border-color: var(--ink); }
+
+.toggles { display: flex; gap: 6px; flex: none; }
+.toggle { border: 1.5px solid var(--line); background: var(--surface); border-radius: 999px; padding: 3px 12px; font-size: 17px; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; }
+.toggle:hover { border-color: var(--ink); }
+.toggle[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.toggle.solid { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.toggle .ico { font-size: 15px; line-height: 1; }
+
+/* Home: big city names on the left, an endless reel of café names on the right */
+.home { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 40%); gap: 36px; padding-block: 28px 0; align-items: start; }
+.cities { list-style: none; margin: 0; padding: 0 0 56px; display: grid; gap: 2px; position: sticky; top: 84px; }
+.cities a { display: inline-flex; align-items: baseline; gap: 16px; font-size: clamp(48px, 7.4vw, 108px); line-height: 1.02; text-decoration: none; transition: color .15s; }
+.cities a::after { content: "→"; font-size: .38em; color: var(--accent); opacity: 0; transform: translateX(-8px); transition: opacity .15s, transform .15s; }
+.cities a:hover, .cities a.hot, .cities a:focus-visible { color: var(--accent); }
+.cities a:hover::after, .cities a.hot::after, .cities a:focus-visible::after { opacity: 1; transform: none; }
+.hero h1 span { color: var(--accent); }
+
+.reel { position: sticky; top: 76px; height: calc(100vh - 100px); max-height: 860px; overflow: hidden;
+  -webkit-mask-image: linear-gradient(transparent, #000 7%, #000 93%, transparent); mask-image: linear-gradient(transparent, #000 7%, #000 93%, transparent); }
+.track { display: flex; flex-direction: column; gap: 14px; animation: reel-y 90s linear infinite; }
+.reel:hover .track { animation-play-state: paused; }
+@keyframes reel-y { to { transform: translateY(calc(-50% - 7px)); } }
+@keyframes reel-x { to { transform: translateX(calc(-50% - 7px)); } }
+.plate { flex: none; container-type: inline-size; aspect-ratio: 4 / 5; max-width: 100%; display: flex; align-items: flex-end; padding: 18px; border-radius: 2px; text-decoration: none; outline: 2px solid transparent; outline-offset: -2px; transition: outline-color .15s; }
+.plate.wide { aspect-ratio: 5 / 4; }
+.plate.sq { aspect-ratio: 1; }
+.plate.hot, .plate:hover { outline-color: var(--accent); }
+.plate .nm { font-size: 15cqi; line-height: 1; overflow-wrap: anywhere; }
+.p-dark { background: var(--ink); color: var(--bg); }
+.p-light { background: var(--surface); color: var(--ink); border: 1px solid var(--line); }
+.p-touch { background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-top: 8px solid var(--stripe); }
 
 /* City hero */
 .hero { padding-block: 40px 28px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px 40px; align-items: end; }
 .hero h1 { font-size: clamp(64px, 13vw, 168px); line-height: .9; letter-spacing: -.01em; }
-.hero h1 span { color: var(--accent); }
 .scribble { font-size: clamp(22px, 2.4vw, 28px); color: var(--olive); line-height: 1.2; margin-top: 12px; max-width: 36ch; transform: rotate(-1deg); transform-origin: left; }
-.specs { display: grid; grid-template-columns: repeat(2, auto); border-top: 2px solid var(--ink); min-width: 280px; margin: 0; }
+.specs { border-top: 2px solid var(--ink); min-width: 180px; margin: 0; }
 .specs div { padding: 10px 16px 10px 0; border-bottom: 1px solid var(--line); }
-.specs dt { font-family: var(--font-type); font-size: 11px; text-transform: uppercase; letter-spacing: .14em; color: var(--muted); }
-.specs dd { margin: 2px 0 0; font-family: var(--font-type); font-size: 16px; font-variant-numeric: tabular-nums; }
+.specs dt { font-size: 15px; color: var(--muted); }
+.specs dd { margin: 2px 0 0; font-size: 22px; font-variant-numeric: tabular-nums; }
 
 /* Filters */
-.filters { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px 40px; padding-block: 18px 22px; border-top: 1.5px dashed var(--line); border-bottom: 1.5px dashed var(--line); align-items: end; }
+.filters { padding-block: 18px 22px; border-top: 1.5px dashed var(--line); border-bottom: 1.5px dashed var(--line); }
 .filters .label { display: block; margin-bottom: 10px; }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
-.chip { border: 1.5px solid var(--line); background: var(--surface); border-radius: 999px; padding: 4px 16px; font-size: 19px; transition: background .15s, color .15s, border-color .15s; }
+.chip { border: 1.5px solid var(--line); background: var(--surface); border-radius: 999px; padding: 4px 16px; font-size: 19px; transition: background-color .15s, color .15s, border-color .15s; }
 .chip:hover { border-color: var(--ink); }
-.chip[aria-pressed="true"] { background: var(--accent); color: var(--p-cream); border-color: var(--accent); }
-.roast { display: flex; gap: 6px; }
-.roast button { width: 42px; height: 42px; border-radius: 50%; border: 3px solid var(--surface); box-shadow: 0 0 0 1px var(--line); transition: transform .15s, box-shadow .15s; }
-.roast button[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--ink); transform: scale(1.08); }
-.roast-cap { display: flex; justify-content: space-between; font-size: 16px; color: var(--muted); margin-top: 4px; }
+.chip[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
 
 /* Results */
 .results-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; padding-block: 22px 16px; }
 .results-head h2 { font-size: 36px; }
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 18px; padding-bottom: 48px; }
-.shop { background: var(--surface); border: 1px solid var(--line); border-top: 8px solid var(--stripe, var(--p-navy)); border-radius: 18px; display: flex; flex-direction: column; min-width: 0; overflow: hidden; transition: transform .2s, box-shadow .2s; }
+.shop { position: relative; background: var(--surface); border: 1px solid var(--line); border-top: 8px solid var(--stripe, var(--s1)); border-radius: 18px; display: flex; flex-direction: column; min-width: 0; overflow: hidden; transition: transform .2s, box-shadow .2s, border-color .2s; }
 .shop:hover { transform: translateY(-2px); box-shadow: 0 10px 24px var(--shadow); }
+.shop:focus-within { border-color: var(--accent); }
+/* The café name is the map link, stretched to cover the whole card */
+.map-link { text-decoration: none; outline: none; }
+.map-link::after { content: ""; position: absolute; inset: 0; z-index: 0; }
+.shop .btn { position: relative; z-index: 1; }
+.shop { cursor: pointer; }
 .body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
-.meta { display: flex; justify-content: space-between; align-items: center; font-family: var(--font-type); font-size: 13px; color: var(--muted); }
-.meta .rank { font-weight: 600; color: var(--ink); }
-.meta .match b { color: var(--accent); }
-.body h3 { font-size: clamp(36px, 4vw, 44px); line-height: 1; margin-top: 2px; }
+.rank { font-size: 16px; color: var(--muted); }
+.body h3 { font-size: clamp(34px, 4vw, 42px); line-height: 1; margin-top: 2px; }
 .body p { margin: 0; font-size: 19px; line-height: 1.35; }
 .note { font-size: 20px; line-height: 1.25; color: var(--accent); }
 .why { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
-.why span { font-family: var(--font-type); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; padding: 3px 9px; border-radius: 999px; background: var(--olive-soft); color: var(--olive); }
+.why span { font-size: 15px; padding: 2px 10px; border-radius: 999px; background: var(--olive-soft); color: var(--olive); }
 .foot { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: auto; padding-top: 12px; border-top: 1.5px dashed var(--line); flex-wrap: wrap; }
-.spec { font-family: var(--font-type); font-size: 13px; color: var(--muted); }
 .actions { display: flex; gap: 6px; }
 .btn { border: 1.5px solid var(--ink); background: transparent; border-radius: 999px; padding: 2px 14px; font-size: 18px; text-decoration: none; white-space: nowrap; }
 .btn.dark { background: var(--ink); color: var(--bg); }
-.btn[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--p-cream); }
 
 footer { border-top: 1.5px dashed var(--line); padding-block: 22px 44px; color: var(--muted); }
-footer .wrap { display: flex; justify-content: space-between; gap: 16px 40px; flex-wrap: wrap; }
-footer p { margin: 0; max-width: 68ch; font-family: var(--font-small); font-size: 14px; line-height: 1.55; }
+footer .wrap { display: flex; justify-content: center; }
 
 @media (max-width: 760px) {
-  .top .wrap { gap: 12px; }
-  .tabs { justify-content: flex-start; }
+  .top .wrap { flex-wrap: wrap; gap: 8px 12px; }
+  .brand { flex: 1; }
+  .tabs-box { order: 3; flex-basis: 100%; }
+  .tabs { margin-left: 0; }
+  .toggle .txt { display: none; }
+  .toggle { padding: 6px 10px; }
   .hero { grid-template-columns: 1fr; padding-block: 26px 20px; }
   .specs { min-width: 0; }
-  .filters { grid-template-columns: 1fr; }
+  .home { grid-template-columns: 1fr; gap: 22px; padding-top: 16px; }
+  .reel { order: -1; position: static; height: 220px; max-height: none;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+  .track { flex-direction: row; height: 100%; width: max-content; animation-name: reel-x; animation-duration: 70s; }
+  .plate { height: 100%; padding: 12px; }
+  .cities { position: static; }
+  .cities a { font-size: clamp(44px, 13vw, 72px); }
 }
-@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; scroll-behavior: auto !important; }
+  .track { animation: none !important; }
+  .reel { overflow: auto; }
+}
 </style>
-
 </head>
 <body>
+
 <header class="top">
   <div class="wrap">
-    <div class="brand"><span class="brand-mark" aria-hidden="true"></span>Third Pour</div>
-    <nav class="tabs-scroll" aria-label="Choose a city">
-      <div class="tabs" id="tabs" role="tablist"></div>
-    </nav>
+    <a class="brand" href="#home"><span class="brand-mark" aria-hidden="true"></span>Third Pour</a>
+    <div class="tabs-box">
+      <button type="button" class="nudge" id="nudge-left" aria-label="Scroll cities left" hidden>←</button>
+      <nav class="tabs-scroll" id="tabs-scroll" aria-label="Choose a city">
+        <div class="tabs" id="tabs"></div>
+      </nav>
+      <button type="button" class="nudge" id="nudge-right" aria-label="Scroll cities right" hidden>→</button>
+    </div>
+    <div class="toggles">
+      <button type="button" class="toggle solid" id="theme-toggle" title="Change light or dark mode"><span class="ico" aria-hidden="true" id="theme-ico">◐</span><span class="txt" id="theme-txt">Auto</span></button>
+    </div>
   </div>
 </header>
 
-<main>
+<main id="home-view" hidden>
+  <div class="wrap home">
+    <nav aria-label="Cities">
+      <h1 class="sr-only">Third Pour</h1>
+      <ul class="cities" id="city-links"></ul>
+    </nav>
+    <div class="reel" id="reel" aria-hidden="true"><div class="track" id="track"></div></div>
+  </div>
+</main>
+
+<main id="city-view" hidden>
   <section class="wrap hero" id="hero"></section>
 
   <section class="wrap filters" aria-label="Your preferences">
-    <div>
-      <span class="label" id="mood-label">I'm looking for</span>
-      <div class="chips" id="moods" role="group" aria-labelledby="mood-label"></div>
-    </div>
-    <div>
-      <span class="label" id="roast-label">Roast I like</span>
-      <div class="roast" id="roast" role="group" aria-labelledby="roast-label"></div>
-      <div class="roast-cap"><span>light</span><span>dark</span></div>
-    </div>
+    <span class="label" id="mood-label">I'm looking for</span>
+    <div class="chips" id="moods" role="group" aria-labelledby="mood-label"></div>
   </section>
 
   <section class="wrap" aria-live="polite">
@@ -167,149 +237,139 @@ footer p { margin: 0; max-width: 68ch; font-family: var(--font-small); font-size
 
 <footer>
   <div class="wrap">
-    <p>Every shop here is an independent specialty café, picked in November 2026.Shops move, close and change their menus, so check hours and the address before you go.</p>
     <p class="label">Boston · Sacramento · NYC · SF · CDMX</p>
   </div>
 </footer>
 
 <script>
-const ROASTS = ["Light", "Medium-light", "Medium", "Medium-dark", "Dark"];
-const ROAST_HEX = ["#B9824A", "#96602F", "#6E421F", "#4D2C14", "#2E1A0C"];
 const MOODS = [
-  { id: "work",     label: "a place to work",        key: "work" },
-  { id: "espresso", label: "serious espresso",       key: "espresso" },
-  { id: "pourover", label: "pour-over & light roasts", key: "pourover" },
-  { id: "pastry",   label: "bakery & pastries",      key: "pastry" },
-  { id: "cozy",     label: "cozy, slow, a date",     key: "cozy" },
-  { id: "quick",    label: "a quick stop",           key: "quick" }
+  { id: "work",     label: "a place to work" },
+  { id: "espresso", label: "serious espresso" },
+  { id: "pourover", label: "pour-over & light roasts" },
+  { id: "pastry",   label: "bakery & pastries" },
+  { id: "cozy",     label: "cozy, slow, a date" },
+  { id: "quick",    label: "a quick stop" }
 ];
 const TAG = { work: "Laptop-friendly", espresso: "Espresso", pourover: "Pour-over", pastry: "Bakery", cozy: "Cozy", quick: "In & out" };
 
-
-// Independent specialty shops rated 4.0+ on Yelp. yelp: [stars, review count or null], from Yelp search snapshots, Nov 2026.
-// Attribute scores 0–3 are editorial judgments. roast: 1 light … 5 dark.
+// Independent specialty shops rated 4.0+ on Yelp, Nov 2026. Attribute scores 0–3 are editorial judgments.
 const CITIES = [
   { id: "boston", name: "Boston", region: "Massachusetts", tz: "America/New_York",
-    lat: "42.36° N", lon: "71.06° W", elev: "43 m",
     scribble: "Cold mornings, good espresso, and a café on every corner downtown.",
     shops: [
-      { name: "Cicada Coffee Bar", hood: "Cambridge", roast: 3, site: "https://www.cicadacoffeebar.com",
+      { name: "Cicada Coffee Bar", hood: "Cambridge", site: "https://www.cicadacoffeebar.com",
         know: "Vietnamese coffee bar",
         blurb: "Vietnamese-inspired café just across the river, pouring Nguyen Coffee Supply beans. Named Boston Magazine's Best Coffee Shop in 2022 and 2023.",
         note: "Try the egg coffee or a cà phê sữa đá.", a: { work: 1, espresso: 2, pourover: 1, pastry: 2, cozy: 3, quick: 1 } },
-      { name: "Gracenote Coffee", hood: "Leather District", roast: 1, yelp: [4.3, 267], site: "https://gracenotecoffee.com",
+      { name: "Gracenote Coffee", hood: "Leather District", site: "https://gracenotecoffee.com",
         know: "Espresso bar and roaster",
         blurb: "A small bar near South Station from a Boston roaster known for bright, carefully roasted coffee.",
         note: "Tiny room. Take it to go and walk.", a: { work: 0, espresso: 3, pourover: 2, pastry: 0, cozy: 0, quick: 3 } },
-      { name: "Ogawa Coffee", hood: "Downtown", roast: 2, yelp: [4.2, 920], site: "https://www.ogawacoffeeusa.com",
+      { name: "Ogawa Coffee", hood: "Downtown", site: "https://www.ogawacoffeeusa.com",
         know: "Latte art, Kyoto roaster",
         blurb: "The Boston outpost of a Kyoto roaster, with a big room downtown and some of the city's best latte art.",
         note: "Watch the baristas pour.", a: { work: 2, espresso: 3, pourover: 2, pastry: 1, cozy: 1, quick: 1 } },
-      { name: "George Howell Coffee", hood: "Downtown Crossing", roast: 1, yelp: [4.1, 385], site: "https://georgehowellcoffee.com",
+      { name: "George Howell Coffee", hood: "Downtown Crossing", site: "https://georgehowellcoffee.com",
         know: "Single-origin pour-overs",
         blurb: "Coffee from one of the people who started the specialty movement in New England. The menu reads like a wine list.",
         note: "Order whatever's on the brew bar that day.", a: { work: 1, espresso: 3, pourover: 3, pastry: 1, cozy: 1, quick: 1 } }
     ] },
   { id: "sacramento", name: "Sacramento", region: "California", tz: "America/Los_Angeles",
-    lat: "38.58° N", lon: "121.49° W", elev: "9 m",
     scribble: "Hot afternoons, so the iced drinks here are taken seriously.",
     shops: [
-      { name: "Offbeat Coffee", hood: "Land Park", roast: 2, yelp: [4.4, null], site: null,
+      { name: "Offbeat Coffee", hood: "Land Park", site: null,
         know: "Pop-up turned shop",
         blurb: "Started as a pop-up and opened in Land Park in 2025. Owned by Vivian Tran and Thao Nguyen.",
         note: "New and already a local favorite.", a: { work: 1, espresso: 3, pourover: 2, pastry: 1, cozy: 2, quick: 2 } },
-      { name: "Milka Coffee Roasters", hood: "Mansion Flats", roast: 2, yelp: [4.4, 513], site: "https://www.milkacoffee.com",
+      { name: "Milka Coffee Roasters", hood: "Mansion Flats", site: "https://www.milkacoffee.com",
         know: "Downtown roaster",
         blurb: "A downtown roaster and café made in Mansion Flats, with a loyal crowd of regulars.",
         note: "Ask what they roasted this week.", a: { work: 2, espresso: 3, pourover: 2, pastry: 1, cozy: 2, quick: 1 } },
-      { name: "Pachamama Coffee", hood: "East Sacramento", roast: 3, yelp: [4.4, 332], site: "https://pachamamacoffee.com",
+      { name: "Pachamama Coffee", hood: "East Sacramento", site: "https://pachamamacoffee.com",
         know: "Farmer-owned, organic",
         blurb: "A cooperative owned by the farmers who grow the coffee. Everything is organic.",
         note: "The money goes back to the growers.", a: { work: 2, espresso: 2, pourover: 2, pastry: 1, cozy: 1, quick: 2 } },
-      { name: "Mast Coffee", hood: "Sacramento", roast: 2, yelp: [4.3, 266], site: null,
+      { name: "Mast Coffee", hood: "Sacramento", site: null,
         know: "Specialty café",
         blurb: "A well-reviewed independent café with a focused specialty menu.",
         note: "Good espresso, calm room.", a: { work: 2, espresso: 3, pourover: 1, pastry: 1, cozy: 2, quick: 1 } },
-      { name: "Temple Coffee Roasters", hood: "Downtown", roast: 2, yelp: [4.2, null], site: "https://templecoffee.com",
+      { name: "Temple Coffee Roasters", hood: "Downtown", site: "https://templecoffee.com",
         know: "Hometown roaster",
         blurb: "Sacramento's best-known roaster. Roomy cafés, a long brew menu and plenty of tables.",
         note: "Good spot to sit and work for a few hours.", a: { work: 3, espresso: 2, pourover: 3, pastry: 1, cozy: 1, quick: 1 } }
     ] },
   { id: "nyc", name: "New York", region: "New York", tz: "America/New_York",
-    lat: "40.71° N", lon: "74.01° W", elev: "10 m",
     scribble: "Start in the East Village, finish in Brooklyn, and walk between them.",
     shops: [
-      { name: "Coffee Project New York", hood: "East Village", roast: 2, yelp: [4.7, 800], site: "https://coffeeprojectny.com",
+      { name: "Coffee Project New York", hood: "East Village", site: "https://coffeeprojectny.com",
         know: "Roaster with a training academy",
         blurb: "A small East Village café from a roaster that also runs a coffee school. Inventive drinks, done carefully.",
         note: "Ask about the signature drinks.", a: { work: 1, espresso: 3, pourover: 3, pastry: 1, cozy: 1, quick: 2 } },
-      { name: "Koré Coffee", hood: "Chinatown", roast: 2, yelp: [4.6, 334], site: null,
+      { name: "Koré Coffee", hood: "Chinatown", site: null,
         know: "Neighborhood specialty café",
         blurb: "A small Chinatown café with one of the highest Yelp ratings in the city.",
         note: "Worth the detour downtown.", a: { work: 1, espresso: 3, pourover: 2, pastry: 1, cozy: 2, quick: 2 } },
-      { name: "La Cabra", hood: "East Village", roast: 1, yelp: [4.5, 514], site: "https://us.lacabra.com",
+      { name: "La Cabra", hood: "East Village", site: "https://us.lacabra.com",
         know: "Danish roaster, cardamom buns",
         blurb: "Light-roast coffee from Aarhus, Denmark, with a bakery behind the counter. Copenhagen calm in Manhattan.",
         note: "Cardamom bun and a filter coffee.", a: { work: 0, espresso: 2, pourover: 3, pastry: 3, cozy: 1, quick: 2 } },
-      { name: "Culture Espresso", hood: "Midtown West", roast: 3, yelp: [4.3, 1500], site: "https://www.cultureespresso.com",
+      { name: "Culture Espresso", hood: "Midtown West", site: "https://www.cultureespresso.com",
         know: "Espresso and famous cookies",
         blurb: "A Midtown favorite for solid espresso and chocolate chip cookies baked in-house.",
         note: "Get the cookie warm.", a: { work: 1, espresso: 3, pourover: 1, pastry: 3, cozy: 1, quick: 3 } },
-      { name: "Sey Coffee", hood: "East Williamsburg", roast: 1, yelp: [4.3, 284], site: "https://www.seycoffee.com",
+      { name: "Sey Coffee", hood: "East Williamsburg", site: "https://www.seycoffee.com",
         know: "Very light roasts",
         blurb: "An airy roastery with some of the lightest, fruitiest coffee in the city.",
         note: "If you like it bright, this is the one.", a: { work: 1, espresso: 2, pourover: 3, pastry: 0, cozy: 1, quick: 1 } },
-      { name: "Devoción", hood: "Williamsburg", roast: 2, yelp: [4.2, 669], site: "https://www.devocion.com",
+      { name: "Devoción", hood: "Williamsburg", site: "https://www.devocion.com",
         know: "Fresh Colombian beans",
         blurb: "Colombian coffee roasted in Brooklyn, served under a big skylight full of plants.",
         note: "Sit under the skylight.", a: { work: 2, espresso: 2, pourover: 2, pastry: 1, cozy: 3, quick: 1 } }
     ] },
   { id: "sf", name: "San Francisco", region: "California", tz: "America/Los_Angeles",
-    lat: "37.77° N", lon: "122.42° W", elev: "16 m",
     scribble: "Fog till noon, so drink it hot and walk the hills.",
     shops: [
-      { name: "The Coffee Movement", hood: "Nob Hill", roast: 1, yelp: [4.6, null], site: "https://www.thecoffeemovement.com",
+      { name: "The Coffee Movement", hood: "Nob Hill", site: "https://www.thecoffeemovement.com",
         know: "Small specialty bar",
         blurb: "A tiny bar with a focused menu of carefully made espresso and filter coffee.",
         note: "Small space, big flavor.", a: { work: 0, espresso: 3, pourover: 3, pastry: 0, cozy: 1, quick: 3 } },
-      { name: "Hedge Coffee", hood: "Mission", roast: 2, yelp: [4.5, 190], site: null,
+      { name: "Hedge Coffee", hood: "Mission", site: null,
         know: "Pop-up turned big room",
         blurb: "Grew from pop-ups into a 4,000 sq ft space on Shotwell Street in 2025.",
         note: "Plenty of room to stay a while.", a: { work: 3, espresso: 2, pourover: 2, pastry: 1, cozy: 2, quick: 1 } },
-      { name: "Andytown Coffee Roasters", hood: "Outer Sunset", roast: 3, yelp: [4.4, 1139], site: "https://andytownsf.com",
+      { name: "Andytown Coffee Roasters", hood: "Outer Sunset", site: "https://andytownsf.com",
         know: "The Snowy Plover",
         blurb: "Neighborhood roaster near Ocean Beach, known for an espresso drink with sparkling water and whipped cream.",
         note: "Order a Snowy Plover, then go to the beach.", a: { work: 1, espresso: 2, pourover: 1, pastry: 2, cozy: 2, quick: 2 } },
-      { name: "Saint Frank", hood: "Russian Hill", roast: 2, yelp: [4.3, 1000], site: "https://www.saintfrankcoffee.com",
+      { name: "Saint Frank", hood: "Russian Hill", site: "https://www.saintfrankcoffee.com",
         know: "Light, airy room",
         blurb: "White walls, wood and a sunny room on Polk Street. Calm, polished and easy to love.",
         note: "Window seat in the afternoon.", a: { work: 2, espresso: 2, pourover: 2, pastry: 1, cozy: 3, quick: 1 } },
-      { name: "Snowbird Coffee", hood: "Inner Sunset", roast: 2, yelp: [4.3, 369], site: "https://www.snowbirdcoffee.com",
+      { name: "Snowbird Coffee", hood: "Inner Sunset", site: "https://www.snowbirdcoffee.com",
         know: "Neighborhood roaster",
         blurb: "A friendly Inner Sunset café, a short walk from Golden Gate Park.",
         note: "Take it to the park.", a: { work: 2, espresso: 2, pourover: 2, pastry: 1, cozy: 2, quick: 2 } },
-      { name: "Q Specialty Coffee", hood: "Presidio Heights", roast: 2, yelp: [4.2, 359], site: "https://www.qspecialtycoffee.com",
+      { name: "Q Specialty Coffee", hood: "Presidio Heights", site: "https://www.qspecialtycoffee.com",
         know: "Fresh roasts, creative brews",
         blurb: "A roaster-café on the quieter side of town with fresh coffee and inventive drinks.",
         note: "Try something off the specials board.", a: { work: 2, espresso: 2, pourover: 2, pastry: 1, cozy: 2, quick: 1 } },
-      { name: "Linea Caffe", hood: "Mission", roast: 3, yelp: [4.0, 278], site: "https://lineacaffe.com",
+      { name: "Linea Caffe", hood: "Mission", site: "https://lineacaffe.com",
         know: "Organic roaster, espresso bar",
         blurb: "A small corner bar from a veteran organic roaster. Mostly espresso, done very well.",
         note: "Small menu, all good.", a: { work: 0, espresso: 3, pourover: 1, pastry: 1, cozy: 0, quick: 3 } }
     ] },
   { id: "cdmx", name: "Ciudad de México", region: "México", tz: "America/Mexico_City",
-    lat: "19.43° N", lon: "99.13° W", elev: "2,240 m",
-    scribble: "At 2,240 m water boils near 92 °C, so brews here pull a little differently.",
+    scribble: "High altitude, so water boils cooler and brews pull a little differently.",
     shops: [
-      { name: "Qūentin Café", hood: "Condesa", roast: 2, yelp: [4.8, 38], site: null,
+      { name: "Qūentin Café", hood: "Condesa", site: null,
         know: "Specialty espresso, banana bread",
         blurb: "One of the cafés that shaped the city's modern specialty scene. Very consistent espresso.",
         note: "Get the banana bread.", a: { work: 1, espresso: 3, pourover: 2, pastry: 2, cozy: 2, quick: 2 } },
-      { name: "Buna", hood: "Roma Norte", roast: 2, site: "https://buna.mx",
+      { name: "Buna", hood: "Roma Norte", site: "https://buna.mx",
         know: "Mexican roaster",
         blurb: "Roma Norte coffee bar on Orizaba from a roaster that buys Mexican beans and roasts them in the city. Its blends carry Nahuatl names.",
         note: "Buy a bag to take home.", a: { work: 2, espresso: 2, pourover: 3, pastry: 1, cozy: 1, quick: 2 } },
-      { name: "Café Nin", hood: "Juárez", roast: 3, site: null,
+      { name: "Café Nin", hood: "Juárez", site: null,
         know: "Elena Reygadas' café and bakery",
         blurb: "A café from Elena Reygadas, the chef behind Rosetta, in a house on Havre. The pastry counter is open all day.",
         note: "Come for coffee, stay for the pastry case.", a: { work: 1, espresso: 2, pourover: 0, pastry: 3, cozy: 3, quick: 1 } }
@@ -322,32 +382,97 @@ const store = {
 };
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const root = document.documentElement;
 
 const state = {
-  city: null,
+  city: null, // null = home page
   moods: new Set(store.get("tp2-moods", ["espresso"])),
-  roast: store.get("tp2-roast", 2)
+  theme: store.get("tp2-theme", "auto"),
 };
 
-function pickCity() {
-  const fromHash = CITIES.find((c) => c.id === location.hash.slice(1));
-  state.city = fromHash || CITIES.find((c) => c.id === store.get("tp2-city", "")) || CITIES[0];
-}
+const STRIPES = ["--s1", "--s2", "--s3", "--s4", "--s5"];
+const shortName = (c) => ({ cdmx: "CDMX", nyc: "NYC", sf: "SF" }[c.id] || c.name);
 function localTime(tz) {
   try { return new Intl.DateTimeFormat("en-US", { hour: "numeric", minute: "2-digit", timeZone: tz }).format(new Date()); }
   catch (e) { return "—"; }
 }
-const shortName = (c) => ({ cdmx: "CDMX", nyc: "NYC", sf: "SF" }[c.id] || c.name);
-// Card stripes in the board's tones, cycled so neighbors differ
-const STRIPES = ["--p-navy", "--p-oxblood", "--p-olive", "--p-sky", "--p-wood"];
-
-function renderTabs() {
-  $("tabs").innerHTML = CITIES.map((c) =>
-    `<button type="button" class="tab" role="tab" id="tab-${c.id}" data-city="${c.id}" aria-selected="${c.id === state.city.id}">${shortName(c)}</button>`).join("");
-  const active = $("tab-" + state.city.id);
-  if (active) active.scrollIntoView({ block: "nearest", inline: "nearest" });
+function pickView() {
+  state.city = CITIES.find((c) => c.id === location.hash.slice(1)) || null;
 }
 
+/* Reading toggles */
+const THEMES = { auto: ["◐", "Auto"], light: ["☀", "Light"], dark: ["☾", "Dark"] };
+function applyPrefs() {
+  if (state.theme === "auto") root.removeAttribute("data-theme"); else root.setAttribute("data-theme", state.theme);
+  $("theme-ico").textContent = THEMES[state.theme][0];
+  $("theme-txt").textContent = THEMES[state.theme][1];
+  $("theme-toggle").setAttribute("aria-label", `Theme: ${THEMES[state.theme][1]}. Click to change.`);
+}
+
+/* City tabs with visible scroll affordances */
+function renderTabs() {
+  const items = [{ id: "home", label: "Home", sel: !state.city }]
+    .concat(CITIES.map((c) => ({ id: c.id, label: shortName(c), sel: state.city && state.city.id === c.id })));
+  $("tabs").innerHTML = items.map((t) =>
+    `<a class="tab" role="tab" id="tab-${t.id}" href="#${t.id}" aria-selected="${!!t.sel}">${t.label}</a>`).join("");
+  const active = document.querySelector('.tab[aria-selected="true"]');
+  if (active) {
+    const sc = $("tabs-scroll");
+    const l = active.offsetLeft - sc.offsetLeft, r = l + active.offsetWidth;
+    if (l < sc.scrollLeft || r > sc.scrollLeft + sc.clientWidth) sc.scrollLeft = l - 24;
+  }
+  updateNudges();
+}
+function updateNudges() {
+  const sc = $("tabs-scroll");
+  const max = sc.scrollWidth - sc.clientWidth;
+  const atStart = sc.scrollLeft <= 2, atEnd = sc.scrollLeft >= max - 2;
+  const overflow = max > 2;
+  $("nudge-left").hidden = !overflow || atStart;
+  $("nudge-right").hidden = !overflow || atEnd;
+  sc.style.setProperty("--fade-l", overflow && !atStart ? "28px" : "0px");
+  sc.style.setProperty("--fade-r", overflow && !atEnd ? "28px" : "0px");
+}
+(function wireTabScroll() {
+  const sc = $("tabs-scroll");
+  sc.addEventListener("scroll", updateNudges, { passive: true });
+  window.addEventListener("resize", updateNudges);
+  // A vertical mouse wheel scrolls the city row sideways
+  sc.addEventListener("wheel", (e) => {
+    if (sc.scrollWidth <= sc.clientWidth || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+    e.preventDefault(); sc.scrollLeft += e.deltaY;
+  }, { passive: false });
+  $("nudge-left").addEventListener("click", () => sc.scrollBy({ left: -160 }));
+  $("nudge-right").addEventListener("click", () => sc.scrollBy({ left: 160 }));
+})();
+
+/* Home page */
+const PLATE_SHAPES = ["", "wide", "sq", ""];
+const PLATE_KINDS = ["p-dark", "p-light", "p-dark", "p-touch"];
+function plate(s, c, n) {
+  const shape = PLATE_SHAPES[n % PLATE_SHAPES.length];
+  const kind = PLATE_KINDS[n % PLATE_KINDS.length];
+  return `<a class="plate ${shape} ${kind}" href="${mapsUrl(s, c)}" target="_blank" rel="noopener" tabindex="-1" data-city="${c.id}" title="${esc(s.name)} in Maps" style="--stripe:var(${STRIPES[n % STRIPES.length]})"><span class="nm">${esc(s.name)}</span></a>`;
+}
+function renderHome() {
+  $("city-links").innerHTML = CITIES.map((c) => `<li><a href="#${c.id}" data-city="${c.id}">${esc(c.name)}</a></li>`).join("");
+  const plates = [];
+  let n = 0;
+  CITIES.forEach((c) => c.shops.forEach((s) => plates.push(plate(s, c, n++))));
+  // Shuffle the reel so neighbors come from different cities, then loop it twice for a seamless scroll
+  const mixed = plates.map((_, i) => plates[(i * 7) % plates.length]).join("");
+  $("track").innerHTML = mixed + mixed;
+}
+// Pointing at a city lights up its cafés in the reel, and the other way round
+function hot(id) {
+  document.querySelectorAll("#home-view [data-city]").forEach((el) => el.classList.toggle("hot", !!id && el.dataset.city === id));
+}
+["city-links", "track"].forEach((k) => {
+  $(k).addEventListener("mouseover", (e) => { const t = e.target.closest("[data-city]"); hot(t && t.dataset.city); });
+  $(k).addEventListener("mouseleave", () => hot(null));
+});
+
+/* City page */
 function renderHero() {
   const c = state.city;
   $("hero").innerHTML = `
@@ -357,62 +482,48 @@ function renderHero() {
       <div class="scribble">${esc(c.scribble)}</div>
     </div>
     <dl class="specs">
-      <div><dt>Lat</dt><dd>${c.lat}</dd></div>
-      <div><dt>Long</dt><dd>${c.lon}</dd></div>
-      <div><dt>Elevation</dt><dd>${c.elev}</dd></div>
       <div><dt>Local time</dt><dd id="clock">${localTime(c.tz)}</dd></div>
     </dl>`;
 }
-
 function renderControls() {
   $("moods").innerHTML = MOODS.map((m) =>
     `<button type="button" class="chip" id="mood-${m.id}" data-mood="${m.id}" aria-pressed="${state.moods.has(m.id)}">${m.label}</button>`).join("");
-  $("roast").innerHTML = ROASTS.map((r, i) =>
-    `<button type="button" id="roast-${i + 1}" data-roast="${i + 1}" aria-pressed="${state.roast === i + 1}" aria-label="${r} roast" title="${r}" style="background:${ROAST_HEX[i]}"></button>`).join("");
 }
-
-function score(s) {
-  let pts = 0, max = 0;
-  state.moods.forEach((m) => { const k = MOODS.find((x) => x.id === m).key; pts += s.a[k]; max += 3; });
-  const moodFit = max ? pts / max : 0.6;
-  const roastFit = 1 - Math.abs(s.roast - state.roast) / 4;
-  return Math.round((moodFit * 0.7 + roastFit * 0.3) * 100);
-}
-const mapsUrl = (s) => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(`${s.name} ${s.hood} ${state.city.name}`);
+function fit(s) { let pts = 0; state.moods.forEach((m) => { pts += s.a[m]; }); return pts; }
+const mapsUrl = (s, c) => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(`${s.name} ${s.hood} ${c.name}`);
 
 function renderShops() {
   const c = state.city;
-  const ranked = c.shops.map((s, i) => ({ s, i, total: score(s) })).sort((a, b) => b.total - a.total);
+  if (!c) return;
+  const ranked = c.shops.map((s, i) => ({ s, i, f: fit(s) })).sort((a, b) => b.f - a.f || a.i - b.i);
   $("results-title").textContent = `${shortName(c)} shortlist`;
-  $("count").textContent = `${ranked.length} shops · best match first`;
-  $("grid").innerHTML = ranked.map(({ s, i, total }, rank) => {
+  $("count").textContent = state.moods.size ? "sorted by what you picked" : "";
+  $("grid").innerHTML = ranked.map(({ s, i }, rank) => {
     const tags = Object.entries(s.a).filter(([, v]) => v >= 2).sort((a, b) => b[1] - a[1]).slice(0, 3).map(([k]) => TAG[k]);
     const stripe = STRIPES[(i + CITIES.indexOf(c) * 2) % STRIPES.length];
     return `<article class="shop" style="--stripe:var(${stripe})">
       <div class="body">
-        <div class="meta"><span class="rank">#${rank + 1}</span><span class="match"><b>${total}%</b> match</span></div>
-        <h3>${esc(s.name)}</h3>
+        <span class="rank">#${rank + 1}</span>
+        <h3><a class="map-link" href="${mapsUrl(s, c)}" target="_blank" rel="noopener">${esc(s.name)}</a></h3>
         <div class="label">${esc(s.hood)} · ${esc(s.know)}</div>
         <p>${esc(s.blurb)}</p>
         <div class="note">→ ${esc(s.note)}</div>
         <div class="why">${tags.map((t) => `<span>${t}</span>`).join("")}</div>
-        <div class="foot">
-          <span class="spec">Roast · ${ROASTS[s.roast - 1]}</span>
-          <span class="actions">
-            ${s.site ? `<a class="btn" href="${s.site}" target="_blank" rel="noopener">site ↗</a>` : ""}
-            <a class="btn dark" href="${mapsUrl(s)}" target="_blank" rel="noopener">map ↗</a>
-          </span>
-        </div>
       </div>
     </article>`;
   }).join("");
 }
 
-function renderAll() { renderTabs(); renderHero(); renderShops(); }
+function renderAll() {
+  const home = !state.city;
+  $("home-view").hidden = !home;
+  $("city-view").hidden = home;
+  document.body.dataset.view = home ? "home" : "city";
+  renderTabs();
+  if (home) renderHome(); else { renderHero(); renderShops(); }
+}
 
 document.addEventListener("click", (e) => {
-  const t = e.target.closest("[data-city]");
-  if (t) { location.hash = t.dataset.city; return; }
   const m = e.target.closest("[data-mood]");
   if (m) {
     const id = m.dataset.mood;
@@ -420,20 +531,23 @@ document.addEventListener("click", (e) => {
     m.setAttribute("aria-pressed", state.moods.has(id));
     store.set("tp2-moods", [...state.moods]); renderShops(); return;
   }
-  const r = e.target.closest("[data-roast]");
-  if (r) {
-    state.roast = +r.dataset.roast; store.set("tp2-roast", state.roast);
-    document.querySelectorAll("[data-roast]").forEach((b) => b.setAttribute("aria-pressed", +b.dataset.roast === state.roast));
-    renderShops();
+  if (e.target.closest("#theme-toggle")) {
+    const order = ["auto", "light", "dark"];
+    state.theme = order[(order.indexOf(state.theme) + 1) % order.length];
+    store.set("tp2-theme", state.theme); applyPrefs();
   }
 });
 
-window.addEventListener("hashchange", () => { pickCity(); store.set("tp2-city", state.city.id); renderAll(); });
-setInterval(() => { const el = $("clock"); if (el) el.textContent = localTime(state.city.tz); }, 30000);
-// Re-render once fonts arrive so sign lettering uses Schoolbell
-if (document.fonts && document.fonts.ready) document.fonts.ready.then(renderShops);
+window.addEventListener("hashchange", () => { pickView(); renderAll(); window.scrollTo(0, 0); });
+setInterval(() => {
+  const el = $("clock"); if (el && state.city) el.textContent = localTime(state.city.tz);
+  document.querySelectorAll(".tz").forEach((t) => { t.textContent = localTime(t.dataset.tz); });
+}, 30000);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(updateNudges);
 
-pickCity();
+if (!THEMES[state.theme]) state.theme = "auto";
+applyPrefs();
+pickView();
 renderControls();
 renderAll();
 </script>
