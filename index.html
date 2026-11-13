@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Independent specialty coffee shops in Boston, Sacramento, New York, San Francisco and Mexico City, ranked by what you want from your next cup.">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Third Pour</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schoolbell&family=Karla:wght@400;500;600&display=swap">
+<style>
+/* Layout: a handwritten café guide. Chalk-hand lettering leads, a typewriter face labels,
+   and every shop gets its own painted sign in vintage-sneaker tones: cream, navy, oxblood, olive, sky, wood. */
+:root {
+  --bg: #F2ECE0;          /* aged sneaker leather */
+  --surface: #FBF8F1;
+  --ink: #1D2640;         /* navy */
+  --muted: #6E6A60;
+  --line: #DCD3C2;
+  --accent: #8E2C2A;      /* oxblood stripe */
+  --accent-soft: #EFDCD5;
+  --olive: #4D5A33;       /* corduroy green */
+  --olive-soft: #E3E5D1;
+  --shadow: rgba(29, 38, 64, .14);
+  /* fixed sign paints: each pair carries its own contrast, so they read on either theme */
+  --p-cream: #F1E7D2; --p-navy: #1F2A4A; --p-oxblood: #8A2A28; --p-olive: #55603A; --p-sky: #B7CBE3; --p-wood: #B5895A; --p-steel: #C9CCCF;
+  --font-hand: "Schoolbell", "Bradley Hand", "Comic Sans MS", cursive;
+  --font-type: "Karla", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-small: "Karla", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141A2B; --surface: #1B2236; --ink: #F0E8D8; --muted: #A49E90; --line: #2D3550;
+    --accent: #DB6B61; --accent-soft: #3B2024; --olive: #AEBB86; --olive-soft: #262C1F;
+    --shadow: rgba(0, 0, 0, .4);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141A2B; --surface: #1B2236; --ink: #F0E8D8; --muted: #A49E90; --line: #2D3550;
+  --accent: #DB6B61; --accent-soft: #3B2024; --olive: #AEBB86; --olive-soft: #262C1F;
+  --shadow: rgba(0, 0, 0, .4);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-hand); font-size: 19px; line-height: 1.4; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.wrap {
+  max-width: 1200px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+h1, h2, h3 { margin: 0; font-family: var(--font-hand); font-weight: 400; text-wrap: balance; }
+button, a { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.label { font-family: var(--font-type); font-size: 12px; text-transform: uppercase; letter-spacing: .14em; color: var(--muted); }
+
+/* Sticky header + city tabs */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); border-bottom: 1.5px dashed var(--line); }
+.top .wrap { display: flex; align-items: center; gap: 24px; padding-block: 10px; }
+.brand { font-size: 28px; white-space: nowrap; display: flex; align-items: center; gap: 8px; }
+.brand-mark { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--ink); position: relative; flex: none; }
+.brand-mark::after { content: ""; position: absolute; inset: 3px; border-radius: 50%; background: var(--accent); }
+.tabs-scroll { overflow-x: auto; scrollbar-width: none; min-width: 0; flex: 1; }
+.tabs-scroll::-webkit-scrollbar { display: none; }
+.tabs { display: flex; gap: 4px; justify-content: flex-end; min-width: max-content; }
+.tab { border: 1.5px solid transparent; background: transparent; border-radius: 999px; padding: 4px 16px; font-size: 21px; white-space: nowrap; }
+.tab:hover { border-color: var(--line); }
+.tab[aria-selected="true"] { background: var(--ink); color: var(--bg); }
+
+/* City hero */
+.hero { padding-block: 40px 28px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px 40px; align-items: end; }
+.hero h1 { font-size: clamp(64px, 13vw, 168px); line-height: .9; letter-spacing: -.01em; }
+.hero h1 span { color: var(--accent); }
+.scribble { font-size: clamp(22px, 2.4vw, 28px); color: var(--olive); line-height: 1.2; margin-top: 12px; max-width: 36ch; transform: rotate(-1deg); transform-origin: left; }
+.specs { display: grid; grid-template-columns: repeat(2, auto); border-top: 2px solid var(--ink); min-width: 280px; margin: 0; }
+.specs div { padding: 10px 16px 10px 0; border-bottom: 1px solid var(--line); }
+.specs dt { font-family: var(--font-type); font-size: 11px; text-transform: uppercase; letter-spacing: .14em; color: var(--muted); }
+.specs dd { margin: 2px 0 0; font-family: var(--font-type); font-size: 16px; font-variant-numeric: tabular-nums; }
+
+/* Filters */
+.filters { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px 40px; padding-block: 18px 22px; border-top: 1.5px dashed var(--line); border-bottom: 1.5px dashed var(--line); align-items: end; }
+.filters .label { display: block; margin-bottom: 10px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { border: 1.5px solid var(--line); background: var(--surface); border-radius: 999px; padding: 4px 16px; font-size: 19px; transition: background .15s, color .15s, border-color .15s; }
+.chip:hover { border-color: var(--ink); }
+.chip[aria-pressed="true"] { background: var(--accent); color: var(--p-cream); border-color: var(--accent); }
+.roast { display: flex; gap: 6px; }
+.roast button { width: 42px; height: 42px; border-radius: 50%; border: 3px solid var(--surface); box-shadow: 0 0 0 1px var(--line); transition: transform .15s, box-shadow .15s; }
+.roast button[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--ink); transform: scale(1.08); }
+.roast-cap { display: flex; justify-content: space-between; font-size: 16px; color: var(--muted); margin-top: 4px; }
+
+/* Results */
+.results-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; padding-block: 22px 16px; }
+.results-head h2 { font-size: 36px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 18px; padding-bottom: 48px; }
+.shop { background: var(--surface); border: 1px solid var(--line); border-top: 8px solid var(--stripe, var(--p-navy)); border-radius: 18px; display: flex; flex-direction: column; min-width: 0; overflow: hidden; transition: transform .2s, box-shadow .2s; }
+.shop:hover { transform: translateY(-2px); box-shadow: 0 10px 24px var(--shadow); }
+.body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.meta { display: flex; justify-content: space-between; align-items: center; font-family: var(--font-type); font-size: 13px; color: var(--muted); }
+.meta .rank { font-weight: 600; color: var(--ink); }
+.meta .match b { color: var(--accent); }
+.body h3 { font-size: clamp(36px, 4vw, 44px); line-height: 1; margin-top: 2px; }
+.body p { margin: 0; font-size: 19px; line-height: 1.35; }
+.note { font-size: 20px; line-height: 1.25; color: var(--accent); }
+.why { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+.why span { font-family: var(--font-type); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; padding: 3px 9px; border-radius: 999px; background: var(--olive-soft); color: var(--olive); }
+.foot { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: auto; padding-top: 12px; border-top: 1.5px dashed var(--line); flex-wrap: wrap; }
+.spec { font-family: var(--font-type); font-size: 13px; color: var(--muted); }
+.actions { display: flex; gap: 6px; }
+.btn { border: 1.5px solid var(--ink); background: transparent; border-radius: 999px; padding: 2px 14px; font-size: 18px; text-decoration: none; white-space: nowrap; }
+.btn.dark { background: var(--ink); color: var(--bg); }
+.btn[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--p-cream); }
+
+footer { border-top: 1.5px dashed var(--line); padding-block: 22px 44px; color: var(--muted); }
+footer .wrap { display: flex; justify-content: space-between; gap: 16px 40px; flex-wrap: wrap; }
+footer p { margin: 0; max-width: 68ch; font-family: var(--font-small); font-size: 14px; line-height: 1.55; }
+
+@media (max-width: 760px) {
+  .top .wrap { gap: 12px; }
+  .tabs { justify-content: flex-start; }
+  .hero { grid-template-columns: 1fr; padding-block: 26px 20px; }
+  .specs { min-width: 0; }
+  .filters { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="brand"><span class="brand-mark" aria-hidden="true"></span>Third Pour</div>
+    <nav class="tabs-scroll" aria-label="Choose a city">
+      <div class="tabs" id="tabs" role="tablist"></div>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="wrap hero" id="hero"></section>
+
+  <section class="wrap filters" aria-label="Your preferences">
+    <div>
+      <span class="label" id="mood-label">I'm looking for</span>
+      <div class="chips" id="moods" role="group" aria-labelledby="mood-label"></div>
+    </div>
+    <div>
+      <span class="label" id="roast-label">Roast I like</span>
+      <div class="roast" id="roast" role="group" aria-labelledby="roast-label"></div>
+      <div class="roast-cap"><span>light</span><span>dark</span></div>
+    </div>
+  </section>
+
+  <section class="wrap" aria-live="polite">
+    <div class="results-head">
+      <h2 id="results-title">Shortlist</h2>
+      <span class="label" id="count"></span>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Every shop here is an independent specialty café, picked in November 2026.Shops move, close and change their menus, so check hours and the address before you go.</p>
+    <p class="label">Boston · Sacramento · NYC · SF · CDMX</p>
+  </div>
+</footer>
+
+<script>
+const ROASTS = ["Light", "Medium-light", "Medium", "Medium-dark", "Dark"];
+const ROAST_HEX = ["#B9824A", "#96602F", "#6E421F", "#4D2C14", "#2E1A0C"];
+const MOODS = [
+  { id: "work",     label: "a place to work",        key: "work" },
+  { id: "espresso", label: "serious espresso",       key: "espresso" },
+  { id: "pourover", label: "pour-over & light roasts", key: "pourover" },
+  { id: "pastry",   label: "bakery & pastries",      key: "pastry" },
+  { id: "cozy",     label: "cozy, slow, a date",     key: "cozy" },
+  { id: "quick",    label: "a quick stop",           key: "quick" }
+];
+const TAG = { work: "Laptop-friendly", espresso: "Espresso", pourover: "Pour-over", pastry: "Bakery", cozy: "Cozy", quick: "In & out" };
+
+
+// Independent specialty shops rated 4.0+ on Yelp. yelp: [stars, review count or null], from Yelp search snapshots, Nov 2026.
+// Attribute scores 0–3 are editorial judgments. roast: 1 light … 5 dark.
+const CITIES = [
+  { id: "boston", name: "Boston", region: "Massachusetts", tz: "America/New_York",
+    lat: "42.36° N", lon: "71.06° W", elev: "43 m",
+    scribble: "Cold mornings, good espresso, and a café on every corner downtown.",
+    shops: [
+      { name: "Cicada Coffee Bar", hood: "Cambridge", roast: 3, site: "https://www.cicadacoffeebar.com",
+        know: "Vietnamese coffee bar",
+        blurb: "Vietnamese-inspired café just across the river, pouring Nguyen Coffee Supply beans. Named Boston Magazine's Best Coffee Shop in 2022 and 2023.",
+        note: "Try the egg coffee or a cà phê sữa đá.", a: { work: 1, espresso: 2, pourover: 1, pastry: 2, cozy: 3, quick: 1 } },
+      { name: "Gracenote Coffee", hood: "Leather District", roast: 1, yelp: [4.3, 267], site: "https://gracenotecoffee.com",
+        know: "Espresso bar and roaster",
+        blurb: "A small bar near South Station from a Boston roaster known for bright, carefully roasted coffee.",
+        note: "Tiny room. Take it to go and walk.", a: { work: 0, espresso: 3, pourover: 2, pastry: 0, cozy: 0, quick: 3 } },
+      { name: "Ogawa Coffee", hood: "Downtown", roast: 2, yelp: [4.2, 920], site: "https://www.ogawacoffeeusa.com",
+        know: "Latte art, Kyoto roaster",
+        blurb: "The Boston outpost of a Kyoto roaster, with a big room downtown and some of the city's best latte art.",
+        note: "Watch the baristas pour.", a: { work: 2, espresso: 3, pourover: 2, pastry: 1, cozy: 1, quick: 1 } },
+      { name: "George Howell Coffee", hood: "Downtown Crossing", roast: 1, yelp: [4.1, 385], site: "https://georgehowellcoffee.com",
+        know: "Single-origin pour-overs",
+        blurb: "Coffee from one of the people who started the specialty movement in New England. The menu reads like a wine list.",
+        note: "Order whatever's on the brew bar that day.", a: { work: 1, espresso: 3, pourover: 3, pastry: 1, cozy: 1, quick: 1 } }
+    ] },
+  { id: "sacramento", name: "Sacramento", region: "California", tz: "America/Los_Angeles",
+    lat: "38.58° N", lon: "121.49° W", elev: "9 m",
+    scribble: "Hot afternoons, so the iced drinks here are taken seriously.",
+    shops: [
+      { name: "Offbeat Coffee", hood: "Land Park", roast: 2, yelp: [4.4, null], site: null,
+        know: "Pop-up turned shop",
+        blurb: "Started as a pop-up and opened in Land Park in 2025. Owned by Vivian Tran and Thao Nguyen.",
+        note: "New and already a local favorite.", a: { work: 1, espresso: 3, pourover: 2, pastry: 1, cozy: 2, quick: 2 } },
+      { name: "Milka Coffee Roasters", hood: "Mansion Flats", roast: 2, yelp: [4.4, 513], site: "https://www.milkacoffee.com",
+        know: "Downtown roaster",
+        blurb: "A downtown roaster and café made in Mansion Flats, with a loyal crowd of regulars.",
+        note: "Ask what they roasted this week.", a: { work: 2, espresso: 3, pourover: 2, pastry: 1, cozy: 2, quick: 1 } },
+      { name: "Pachamama Coffee", hood: "East Sacramento", roast: 3, yelp: [4.4, 332], site: "https://pachamamacoffee.com",
+        know: "Farmer-owned, organic",
+        blurb: "A cooperative owned by the farmers who grow the coffee. Everything is organic.",
+        note: "The money goes back to the growers.", a: { work: 2, espresso: 2, pourover: 2, pastry: 1, cozy: 1, quick: 2 } },
+      { name: "Mast Coffee", hood: "Sacramento", roast: 2, yelp: [4.3, 266], site: null,
+        know: "Specialty café",
+        blurb: "A well-reviewed independent café with a focused specialty menu.",
+        note: "Good espresso, calm room.", a: { work: 2, espresso: 3, pourover: 1, pastry: 1, cozy: 2, quick: 1 } },
+      { name: "Temple Coffee Roasters", hood: "Downtown", roast: 2, yelp: [4.2, null], site: "https://templecoffee.com",
+        know: "Hometown roaster",
+        blurb: "Sacramento's best-known roaster. Roomy cafés, a long brew menu and plenty of tables.",
+        note: "Good spot to sit and work for a few hours.", a: { work: 3, espresso: 2, pourover: 3, pastry: 1, cozy: 1, quick: 1 } }
+    ] },
+  { id: "nyc", name: "New York", region: "New York", tz: "America/New_York",
+    lat: "40.71° N", lon: "74.01° W", elev: "10 m",
+    scribble: "Start in the East Village, finish in Brooklyn, and walk between them.",
+    shops: [
+      { name: "Coffee Project New York", hood: "East Village", roast: 2, yelp: [4.7, 800], site: "https://coffeeprojectny.com",
+        know: "Roaster with a training academy",
+        blurb: "A small East Village café from a roaster that also runs a coffee school. Inventive drinks, done carefully.",
+        note: "Ask about the signature drinks.", a: { work: 1, espresso: 3, pourover: 3, pastry: 1, cozy: 1, quick: 2 } },
+      { name: "Koré Coffee", hood: "Chinatown", roast: 2, yelp: [4.6, 334], site: null,
+        know: "Neighborhood specialty café",
+        blurb: "A small Chinatown café with one of the highest Yelp ratings in the city.",
+        note: "Worth the detour downtown.", a: { work: 1, espresso: 3, pourover: 2, pastry: 1, cozy: 2, quick: 2 } },
+      { name: "La Cabra", hood: "East Village", roast: 1, yelp: [4.5, 514], site: "https://us.lacabra.com",
+        know: "Danish roaster, cardamom buns",
+        blurb: "Light-roast coffee from Aarhus, Denmark, with a bakery behind the counter. Copenhagen calm in Manhattan.",
+        note: "Cardamom bun and a filter coffee.", a: { work: 0, espresso: 2, pourover: 3, pastry: 3, cozy: 1, quick: 2 } },
+      { name: "Culture Espresso", hood: "Midtown West", roast: 3, yelp: [4.3, 1500], site: "https://www.cultureespresso.com",
+        know: "Espresso and famous cookies",
+        blurb: "A Midtown favorite for solid espresso and chocolate chip cookies baked in-house.",
+        note: "Get the cookie warm.", a: { work: 1, espresso: 3, pourover: 1, pastry: 3, cozy: 1, quick: 3 } },
+      { name: "Sey Coffee", hood: "East Williamsburg", roast: 1, yelp: [4.3, 284], site: "https://www.seycoffee.com",
+        know: "Very light roasts",
+        blurb: "An airy roastery with some of the lightest, fruitiest coffee in the city.",
+        note: "If you like it bright, this is the one.", a: { work: 1, espresso: 2, pourover: 3, pastry: 0, cozy: 1, quick: 1 } },
+      { name: "Devoción", hood: "Williamsburg", roast: 2, yelp: [4.2, 669], site: "https://www.devocion.com",
+        know: "Fresh Colombian beans",
+        blurb: "Colombian coffee roasted in Brooklyn, served under a big skylight full of plants.",
+        note: "Sit under the skylight.", a: { work: 2, espresso: 2, pourover: 2, pastry: 1, cozy: 3, quick: 1 } }
+    ] },
+  { id: "sf", name: "San Francisco", region: "California", tz: "America/Los_Angeles",
+    lat: "37.77° N", lon: "122.42° W", elev: "16 m",
+    scribble: "Fog till noon, so drink it hot and walk the hills.",
+    shops: [
+      { name: "The Coffee Movement", hood: "Nob Hill", roast: 1, yelp: [4.6, null], site: "https://www.thecoffeemovement.com",
+        know: "Small specialty bar",
+        blurb: "A tiny bar with a focused menu of carefully made espresso and filter coffee.",
+        note: "Small space, big flavor.", a: { work: 0, espresso: 3, pourover: 3, pastry: 0, cozy: 1, quick: 3 } },
+      { name: "Hedge Coffee", hood: "Mission", roast: 2, yelp: [4.5, 190], site: null,
+        know: "Pop-up turned big room",
+        blurb: "Grew from pop-ups into a 4,000 sq ft space on Shotwell Street in 2025.",
+        note: "Plenty of room to stay a while.", a: { work: 3, espresso: 2, pourover: 2, pastry: 1, cozy: 2, quick: 1 } },
+      { name: "Andytown Coffee Roasters", hood: "Outer Sunset", roast: 3, yelp: [4.4, 1139], site: "https://andytownsf.com",
+        know: "The Snowy Plover",
+        blurb: "Neighborhood roaster near Ocean Beach, known for an espresso drink with sparkling water and whipped cream.",
+        note: "Order a Snowy Plover, then go to the beach.", a: { work: 1, espresso: 2, pourover: 1, pastry: 2, cozy: 2, quick: 2 } },
+      { name: "Saint Frank", hood: "Russian Hill", roast: 2, yelp: [4.3, 1000], site: "https://www.saintfrankcoffee.com",
+        know: "Light, airy room",
+        blurb: "White walls, wood and a sunny room on Polk Street. Calm, polished and easy to love.",
+        note: "Window seat in the afternoon.", a: { work: 2, espresso: 2, pourover: 2, pastry: 1, cozy: 3, quick: 1 } },
+      { name: "Snowbird Coffee", hood: "Inner Sunset", roast: 2, yelp: [4.3, 369], site: "https://www.snowbirdcoffee.com",
+        know: "Neighborhood roaster",
+        blurb: "A friendly Inner Sunset café, a short walk from Golden Gate Park.",
+        note: "Take it to the park.", a: { work: 2, espresso: 2, pourover: 2, pastry: 1, cozy: 2, quick: 2 } },
+      { name: "Q Specialty Coffee", hood: "Presidio Heights", roast: 2, yelp: [4.2, 359], site: "https://www.qspecialtycoffee.com",
+        know: "Fresh roasts, creative brews",
+        blurb: "A roaster-café on the quieter side of town with fresh coffee and inventive drinks.",
+        note: "Try something off the specials board.", a: { work: 2, espresso: 2, pourover: 2, pastry: 1, cozy: 2, quick: 1 } },
+      { name: "Linea Caffe", hood: "Mission", roast: 3, yelp: [4.0, 278], site: "https://lineacaffe.com",
+        know: "Organic roaster, espresso bar",
+        blurb: "A small corner bar from a veteran organic roaster. Mostly espresso, done very well.",
+        note: "Small menu, all good.", a: { work: 0, espresso: 3, pourover: 1, pastry: 1, cozy: 0, quick: 3 } }
+    ] },
+  { id: "cdmx", name: "Ciudad de México", region: "México", tz: "America/Mexico_City",
+    lat: "19.43° N", lon: "99.13° W", elev: "2,240 m",
+    scribble: "At 2,240 m water boils near 92 °C, so brews here pull a little differently.",
+    shops: [
+      { name: "Qūentin Café", hood: "Condesa", roast: 2, yelp: [4.8, 38], site: null,
+        know: "Specialty espresso, banana bread",
+        blurb: "One of the cafés that shaped the city's modern specialty scene. Very consistent espresso.",
+        note: "Get the banana bread.", a: { work: 1, espresso: 3, pourover: 2, pastry: 2, cozy: 2, quick: 2 } },
+      { name: "Buna", hood: "Roma Norte", roast: 2, site: "https://buna.mx",
+        know: "Mexican roaster",
+        blurb: "Roma Norte coffee bar on Orizaba from a roaster that buys Mexican beans and roasts them in the city. Its blends carry Nahuatl names.",
+        note: "Buy a bag to take home.", a: { work: 2, espresso: 2, pourover: 3, pastry: 1, cozy: 1, quick: 2 } },
+      { name: "Café Nin", hood: "Juárez", roast: 3, site: null,
+        know: "Elena Reygadas' café and bakery",
+        blurb: "A café from Elena Reygadas, the chef behind Rosetta, in a house on Havre. The pastry counter is open all day.",
+        note: "Come for coffee, stay for the pastry case.", a: { work: 1, espresso: 2, pourover: 0, pastry: 3, cozy: 3, quick: 1 } }
+    ] }
+];
+
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+};
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+const state = {
+  city: null,
+  moods: new Set(store.get("tp2-moods", ["espresso"])),
+  roast: store.get("tp2-roast", 2)
+};
+
+function pickCity() {
+  const fromHash = CITIES.find((c) => c.id === location.hash.slice(1));
+  state.city = fromHash || CITIES.find((c) => c.id === store.get("tp2-city", "")) || CITIES[0];
+}
+function localTime(tz) {
+  try { return new Intl.DateTimeFormat("en-US", { hour: "numeric", minute: "2-digit", timeZone: tz }).format(new Date()); }
+  catch (e) { return "—"; }
+}
+const shortName = (c) => ({ cdmx: "CDMX", nyc: "NYC", sf: "SF" }[c.id] || c.name);
+// Card stripes in the board's tones, cycled so neighbors differ
+const STRIPES = ["--p-navy", "--p-oxblood", "--p-olive", "--p-sky", "--p-wood"];
+
+function renderTabs() {
+  $("tabs").innerHTML = CITIES.map((c) =>
+    `<button type="button" class="tab" role="tab" id="tab-${c.id}" data-city="${c.id}" aria-selected="${c.id === state.city.id}">${shortName(c)}</button>`).join("");
+  const active = $("tab-" + state.city.id);
+  if (active) active.scrollIntoView({ block: "nearest", inline: "nearest" });
+}
+
+function renderHero() {
+  const c = state.city;
+  $("hero").innerHTML = `
+    <div>
+      <div class="label">${esc(c.region)} · coffee guide</div>
+      <h1>${esc(c.name)}<span>.</span></h1>
+      <div class="scribble">${esc(c.scribble)}</div>
+    </div>
+    <dl class="specs">
+      <div><dt>Lat</dt><dd>${c.lat}</dd></div>
+      <div><dt>Long</dt><dd>${c.lon}</dd></div>
+      <div><dt>Elevation</dt><dd>${c.elev}</dd></div>
+      <div><dt>Local time</dt><dd id="clock">${localTime(c.tz)}</dd></div>
+    </dl>`;
+}
+
+function renderControls() {
+  $("moods").innerHTML = MOODS.map((m) =>
+    `<button type="button" class="chip" id="mood-${m.id}" data-mood="${m.id}" aria-pressed="${state.moods.has(m.id)}">${m.label}</button>`).join("");
+  $("roast").innerHTML = ROASTS.map((r, i) =>
+    `<button type="button" id="roast-${i + 1}" data-roast="${i + 1}" aria-pressed="${state.roast === i + 1}" aria-label="${r} roast" title="${r}" style="background:${ROAST_HEX[i]}"></button>`).join("");
+}
+
+function score(s) {
+  let pts = 0, max = 0;
+  state.moods.forEach((m) => { const k = MOODS.find((x) => x.id === m).key; pts += s.a[k]; max += 3; });
+  const moodFit = max ? pts / max : 0.6;
+  const roastFit = 1 - Math.abs(s.roast - state.roast) / 4;
+  return Math.round((moodFit * 0.7 + roastFit * 0.3) * 100);
+}
+const mapsUrl = (s) => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(`${s.name} ${s.hood} ${state.city.name}`);
+
+function renderShops() {
+  const c = state.city;
+  const ranked = c.shops.map((s, i) => ({ s, i, total: score(s) })).sort((a, b) => b.total - a.total);
+  $("results-title").textContent = `${shortName(c)} shortlist`;
+  $("count").textContent = `${ranked.length} shops · best match first`;
+  $("grid").innerHTML = ranked.map(({ s, i, total }, rank) => {
+    const tags = Object.entries(s.a).filter(([, v]) => v >= 2).sort((a, b) => b[1] - a[1]).slice(0, 3).map(([k]) => TAG[k]);
+    const stripe = STRIPES[(i + CITIES.indexOf(c) * 2) % STRIPES.length];
+    return `<article class="shop" style="--stripe:var(${stripe})">
+      <div class="body">
+        <div class="meta"><span class="rank">#${rank + 1}</span><span class="match"><b>${total}%</b> match</span></div>
+        <h3>${esc(s.name)}</h3>
+        <div class="label">${esc(s.hood)} · ${esc(s.know)}</div>
+        <p>${esc(s.blurb)}</p>
+        <div class="note">→ ${esc(s.note)}</div>
+        <div class="why">${tags.map((t) => `<span>${t}</span>`).join("")}</div>
+        <div class="foot">
+          <span class="spec">Roast · ${ROASTS[s.roast - 1]}</span>
+          <span class="actions">
+            ${s.site ? `<a class="btn" href="${s.site}" target="_blank" rel="noopener">site ↗</a>` : ""}
+            <a class="btn dark" href="${mapsUrl(s)}" target="_blank" rel="noopener">map ↗</a>
+          </span>
+        </div>
+      </div>
+    </article>`;
+  }).join("");
+}
+
+function renderAll() { renderTabs(); renderHero(); renderShops(); }
+
+document.addEventListener("click", (e) => {
+  const t = e.target.closest("[data-city]");
+  if (t) { location.hash = t.dataset.city; return; }
+  const m = e.target.closest("[data-mood]");
+  if (m) {
+    const id = m.dataset.mood;
+    state.moods.has(id) ? state.moods.delete(id) : state.moods.add(id);
+    m.setAttribute("aria-pressed", state.moods.has(id));
+    store.set("tp2-moods", [...state.moods]); renderShops(); return;
+  }
+  const r = e.target.closest("[data-roast]");
+  if (r) {
+    state.roast = +r.dataset.roast; store.set("tp2-roast", state.roast);
+    document.querySelectorAll("[data-roast]").forEach((b) => b.setAttribute("aria-pressed", +b.dataset.roast === state.roast));
+    renderShops();
+  }
+});
+
+window.addEventListener("hashchange", () => { pickCity(); store.set("tp2-city", state.city.id); renderAll(); });
+setInterval(() => { const el = $("clock"); if (el) el.textContent = localTime(state.city.tz); }, 30000);
+// Re-render once fonts arrive so sign lettering uses Schoolbell
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(renderShops);
+
+pickCity();
+renderControls();
+renderAll();
+</script>
+</body>
+</html>
