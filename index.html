@@ -53,7 +53,6 @@ body[data-view="city"] {
   --olive: var(--ink); --olive-soft: var(--line);
   --s1: var(--ink); --s2: var(--ink); --s3: var(--ink); --s4: var(--ink); --s5: var(--ink);
 }
-/* Easy-read font: swaps the handwriting for a high-legibility face everywhere */
 
 * { box-sizing: border-box; }
 html, body { background: var(--bg); }
@@ -70,7 +69,7 @@ button { cursor: pointer; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .label { font-family: var(--font-type); font-size: 16px; letter-spacing: .02em; color: var(--muted); }
 
-/* Sticky header: brand, city tabs, reading toggles */
+/* Sticky header: brand and city tabs */
 .top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); border-bottom: 1.5px dashed var(--line); }
 .top .wrap { display: flex; align-items: center; gap: 16px; padding-block: 10px; }
 .brand { font-size: 28px; white-space: nowrap; display: flex; align-items: center; gap: 8px; background: none; border: 0; padding: 0; text-decoration: none; }
@@ -90,12 +89,6 @@ button { cursor: pointer; }
 .nudge { flex: none; width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--line); background: var(--surface); font-family: var(--font-type); font-size: 15px; line-height: 1; display: grid; place-items: center; padding: 0; }
 .nudge:hover { border-color: var(--ink); }
 
-.toggles { display: flex; gap: 6px; flex: none; }
-.toggle { border: 1.5px solid var(--line); background: var(--surface); border-radius: 999px; padding: 3px 12px; font-size: 17px; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; }
-.toggle:hover { border-color: var(--ink); }
-.toggle[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
-.toggle.solid { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-.toggle .ico { font-size: 15px; line-height: 1; }
 
 /* Home: big city names on the left, an endless reel of café names on the right */
 .home { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 40%); gap: 36px; padding-block: 28px 0; align-items: start; }
@@ -170,8 +163,6 @@ footer .wrap { display: flex; justify-content: center; }
   .brand { flex: 1; }
   .tabs-box { order: 3; flex-basis: 100%; }
   .tabs { margin-left: 0; }
-  .toggle .txt { display: none; }
-  .toggle { padding: 6px 10px; }
   .hero { grid-template-columns: 1fr; padding-block: 26px 20px; }
   .specs { min-width: 0; }
   .home { grid-template-columns: 1fr; gap: 22px; padding-top: 16px; }
@@ -201,9 +192,6 @@ footer .wrap { display: flex; justify-content: center; }
         <div class="tabs" id="tabs"></div>
       </nav>
       <button type="button" class="nudge" id="nudge-right" aria-label="Scroll cities right" hidden>→</button>
-    </div>
-    <div class="toggles">
-      <button type="button" class="toggle solid" id="theme-toggle" title="Change light or dark mode"><span class="ico" aria-hidden="true" id="theme-ico">◐</span><span class="txt" id="theme-txt">Auto</span></button>
     </div>
   </div>
 </header>
@@ -387,7 +375,6 @@ const root = document.documentElement;
 const state = {
   city: null, // null = home page
   moods: new Set(store.get("tp2-moods", ["espresso"])),
-  theme: store.get("tp2-theme", "auto"),
 };
 
 const STRIPES = ["--s1", "--s2", "--s3", "--s4", "--s5"];
@@ -400,14 +387,6 @@ function pickView() {
   state.city = CITIES.find((c) => c.id === location.hash.slice(1)) || null;
 }
 
-/* Reading toggles */
-const THEMES = { auto: ["◐", "Auto"], light: ["☀", "Light"], dark: ["☾", "Dark"] };
-function applyPrefs() {
-  if (state.theme === "auto") root.removeAttribute("data-theme"); else root.setAttribute("data-theme", state.theme);
-  $("theme-ico").textContent = THEMES[state.theme][0];
-  $("theme-txt").textContent = THEMES[state.theme][1];
-  $("theme-toggle").setAttribute("aria-label", `Theme: ${THEMES[state.theme][1]}. Click to change.`);
-}
 
 /* City tabs with visible scroll affordances */
 function renderTabs() {
@@ -531,11 +510,6 @@ document.addEventListener("click", (e) => {
     m.setAttribute("aria-pressed", state.moods.has(id));
     store.set("tp2-moods", [...state.moods]); renderShops(); return;
   }
-  if (e.target.closest("#theme-toggle")) {
-    const order = ["auto", "light", "dark"];
-    state.theme = order[(order.indexOf(state.theme) + 1) % order.length];
-    store.set("tp2-theme", state.theme); applyPrefs();
-  }
 });
 
 window.addEventListener("hashchange", () => { pickView(); renderAll(); window.scrollTo(0, 0); });
@@ -545,8 +519,6 @@ setInterval(() => {
 }, 30000);
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(updateNudges);
 
-if (!THEMES[state.theme]) state.theme = "auto";
-applyPrefs();
 pickView();
 renderControls();
 renderAll();
